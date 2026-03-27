@@ -39,5 +39,6 @@ public:
 protected:
 	std::vector<class AActor*> Actors;
 
+	void Sort(); //정렬 함수 선언
 };
 

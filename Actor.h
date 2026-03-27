@@ -15,9 +15,15 @@ public:
 
 	void SetActorLocation(int NewX, int NewY);
 
+	inline const int GetZOrder() //순서
+	{
+		return ZOrder;
+	}
+
 protected:
 	int X;
 	int Y;
+	int ZOrder=0 ; //먼저 그리는 순서관련 변수
 	char Mesh;
 
 };

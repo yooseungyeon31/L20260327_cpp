@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <Windows.h>
 class UWorld;
 class AActor;
 
@@ -38,6 +39,18 @@ public:
 
 	static int KeyCode;
 
+	//----더블버퍼링을 위해 만든
+
+	//Renderer
+	HANDLE ScreenBufferHandle[2];
+	int ActiveScreenBufferIndex = 0;
+
+	void InitBuffer();
+	void Clear();
+	void Render(int InX, int InY, char InMesh);
+	void Flip();
+	void TermBuffer();
+	//----------------------
 protected: 
 	void Input();
 	void Tick();

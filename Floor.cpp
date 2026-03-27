@@ -5,12 +5,10 @@ AFloor::AFloor(int InX, int InY, char InMesh)
 	X = InX;
 	Y = InY;
 	Mesh = InMesh;
+	ZOrder = 0; //바닥이 젤 먼저 깔려야 하니까 0으로 설정
 }
 
 AFloor::~AFloor()
 {
 }
 
-void AFloor::Render() {
-	// 아무것도 하지 않음 (임시 테스트)
-}
