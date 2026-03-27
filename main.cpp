@@ -43,7 +43,7 @@ int main()
 
 	//delete MyEngine;
 
-	GEngine->GetInstance();
+	GEngine->Init();
 
 	GEngine->GetWorld()->Load("level01.umap");
 

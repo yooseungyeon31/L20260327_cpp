@@ -33,6 +33,9 @@ public:
 
 	void Render();
 
+	
+
+
 protected:
 	std::vector<class AActor*> Actors;
 

@@ -33,14 +33,18 @@ void UWorld::Load(std::string MapName)
 		std::getline(MapStream, Line);
 		for (int X = 0; X < Line.length(); ++X)
 		{
+
+			if (Line[X] != '*')
+			{
+				SpawnActor<AFloor>()->SetActorLocation(X, Y);
+			
+			}
+
 			if (Line[X] == '*')
 			{
 				SpawnActor<AWall>()->SetActorLocation(X, Y);
 			}
-			else if (Line[X] == ' ')
-			{
-				SpawnActor<AFloor>()->SetActorLocation(X, Y);
-			}
+	
 			else if (Line[X] == 'P')
 			{
 				SpawnActor<APlayer>()->SetActorLocation(X, Y);
@@ -74,3 +78,4 @@ void UWorld::Render()
 	}
 
 }
+
