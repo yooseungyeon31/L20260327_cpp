@@ -43,7 +43,14 @@ int SDL_main(int argc, char* argv[])
 		//이거하고 이거해라 적은것
 		SDL_SetRenderDrawColor(MyRender, 255, 255, 255, 255);
 		SDL_RenderClear(MyRender);
+
+		//----노란색 사각형 띄우기----//
+		SDL_Rect rect = { rand() % 250, rand() % 150,rand() % 150 , rand() % 150 };
 		
+		SDL_SetRenderDrawColor(MyRender, 255, 255, 0, 255); //노란색 사각형
+
+		SDL_RenderFillRect(MyRender, &rect);
+		//----------------------------
 
 		//이제 보내기
 		SDL_RenderPresent(MyRender);
