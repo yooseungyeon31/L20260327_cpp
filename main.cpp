@@ -2,6 +2,8 @@
 #include "Engine.h"
 #include "World.h"
 
+#include <random>
+
 
 #include "SDL.h"
 //#include "SDL_main.h"
@@ -18,6 +20,20 @@ using namespace std;
 //-----------------------------------------
 int SDL_main(int argc, char* argv[])
 {
+	//난수 만들어주는애 . 랜덤 만들어주는 거 많음
+	//더 좋은 난수를 만들기 위해 사용
+	std::random_device RandomDevice;
+	std::mt19937 RandomGenerator(RandomDevice());
+
+	std::uniform_int_distribution<int> DistX(0, 640);
+	std::uniform_int_distribution<int> DistY(0, 480);
+
+	std::uniform_int_distribution<int> DistR(0, 255);
+	std::uniform_int_distribution<int> DistG(0, 255);
+	std::uniform_int_distribution<int> DistB(0, 255);
+	std::uniform_int_distribution<int> DistA(0, 255);
+
+
 	SDL_Init(SDL_INIT_EVERYTHING); //윈도우 초기화
 
 	//윈도우 가리키고 만들고
@@ -41,19 +57,34 @@ int SDL_main(int argc, char* argv[])
 
 		//GPU한테 보낼 명령어 모음 
 		//이거하고 이거해라 적은것
+		//CPU가 하는건 GPU가 할 일을 적는 것.
 		SDL_SetRenderDrawColor(MyRender, 255, 255, 255, 255);
 		SDL_RenderClear(MyRender);
 
-		//----노란색 사각형 띄우기----//
-		SDL_Rect rect = { rand() % 250, rand() % 150,rand() % 150 , rand() % 150 };
-		
-		SDL_SetRenderDrawColor(MyRender, 255, 255, 0, 255); //노란색 사각형
+		//어떻게 그릴지 명령어 GPU
+		//빨간색 붓 고르고
+		for (int i = 0; i < 100; ++i)
+		{
+			SDL_SetRenderDrawColor(MyRender, DistR(RandomGenerator), DistG(RandomGenerator), DistB(RandomGenerator), DistA(RandomGenerator));
 
-		SDL_RenderFillRect(MyRender, &rect);
+			//사각형 그려
+			SDL_Rect MyRect = { DistX(RandomGenerator), DistY(RandomGenerator), DistX(RandomGenerator), DistY(RandomGenerator) };
+			SDL_RenderFillRect(MyRender, &MyRect);
+		}
+		//이제 보내기 //그려라 GPU에
+		SDL_RenderPresent(MyRender);
+
+
+
+		//----노란색 사각형 띄우기----//
+		//SDL_Rect rect = { rand() % 250, rand() % 150,rand() % 150 , rand() % 150 };
+		//
+		//SDL_SetRenderDrawColor(MyRender, 255, 255, 0, 255); //노란색 사각형
+
+		//SDL_RenderFillRect(MyRender, &rect);
 		//----------------------------
 
-		//이제 보내기
-		SDL_RenderPresent(MyRender);
+	
 	
 	}
 	//랜더 한거 삭제
