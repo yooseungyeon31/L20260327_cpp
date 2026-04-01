@@ -3,6 +3,8 @@
 #include "Actor.h"
 #include "World.h"
 
+#include "SDL.h"
+
 UEngine* UEngine::Instance = nullptr;
 
 int UEngine::KeyCode = 0;
@@ -20,6 +22,14 @@ UEngine::~UEngine()
 
 void UEngine::Init()
 {
+	SDL_Init(SDL_INIT_EVERYTHING); //윈도우 초기화
+
+	//윈도우 가리키고 만들고
+	MyWindow = SDL_CreateWindow("Hello", 100, 100, 640, 480, SDL_WINDOW_SHOWN);
+
+	//GPU, 붓
+	MyRender = SDL_CreateRenderer(MyWindow, -1, 0);
+
 	bIsRunning = true;
 
 	InitBuffer(); //버퍼도 초기화
@@ -30,11 +40,20 @@ void UEngine::Init()
 
 void UEngine::Term()
 {
+
+	//랜더 한거 삭제
+	SDL_DestroyRenderer(MyRender);
+	//윈도우 삭제
+	SDL_DestroyWindow(MyWindow);
+
+
+	SDL_Quit();
+
 	delete World;
 
-	TermBuffer(); 
+	TermBuffer();
 
-	World == nullptr;
+	World = nullptr;
 
 }
 
@@ -42,6 +61,8 @@ void UEngine::Run()
 {
 	while (bIsRunning)
 	{
+		SDL_PollEvent(&MyEvent);
+
 		Input();
 		Tick();
 		Render();
@@ -94,18 +115,35 @@ void UEngine::TermBuffer()
 //-------------------------------------------------------
 void UEngine::Input()
 {
-	
-	KeyCode = _getch();
+	if (_kbhit())
+	{
+		KeyCode = _getch();
+	}
 }
+
 
 void UEngine::Tick()
 {
+	if (MyEvent.type == SDL_QUIT)
+	{
+		bIsRunning = false;
+	}
+
 	World->Tick();
 }
 
 void UEngine::Render()
 {
-	
-		World->Render();
-	
+
+	//GPU한테 보낼 명령어 모음 
+	//이거하고 이거해라 적은것
+	//CPU가 하는건 GPU가 할 일을 적는 것.
+	SDL_SetRenderDrawColor(MyRender, 255, 255, 255, 255);
+	SDL_RenderClear(MyRender);
+
+	World->Render();
+
+	//그려CPU -> GPU
+	SDL_RenderPresent(MyRender);
+
 }
