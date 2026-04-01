@@ -23,6 +23,11 @@ public:
 protected:
 	int X;
 	int Y;
+
+	int R;
+	int G;
+	int B;
+
 	int ZOrder=0 ; //먼저 그리는 순서관련 변수
 	char Mesh;
 

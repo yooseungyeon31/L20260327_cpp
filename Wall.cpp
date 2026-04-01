@@ -7,6 +7,10 @@ AWall::AWall(int InX, int InY, char InMesh)
 	Y = InY;
 	Mesh = InMesh;
 	ZOrder = 1; //바닥 다음 벽
+
+	R = 0;
+	G = 255;
+	B = 0;
 }
 
 AWall::~AWall()

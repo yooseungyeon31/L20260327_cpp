@@ -6,6 +6,10 @@ AFloor::AFloor(int InX, int InY, char InMesh)
 	Y = InY;
 	Mesh = InMesh;
 	ZOrder = 0; //바닥이 젤 먼저 깔려야 하니까 0으로 설정
+
+	R = 0;
+	G = 0;
+	B = 0;
 }
 
 AFloor::~AFloor()
