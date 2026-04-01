@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Engine.h"
 #include "World.h"
+#include <math.h>
 
 #include <random>
 
@@ -63,28 +64,69 @@ int SDL_main(int argc, char* argv[])
 
 		//어떻게 그릴지 명령어 GPU
 		//빨간색 붓 고르고
-		for (int i = 0; i < 100; ++i)
+		//for (int i = 0; i < 100; ++i)
+		//{
+		//	SDL_SetRenderDrawColor(MyRender, DistR(RandomGenerator), DistG(RandomGenerator), DistB(RandomGenerator), DistA(RandomGenerator));
+		
+		//	//사각형 그려
+		//	SDL_Rect MyRect = { DistX(RandomGenerator), DistY(RandomGenerator), DistX(RandomGenerator), DistY(RandomGenerator) };
+		//	SDL_RenderFillRect(MyRender, &MyRect);
+		//}
+
+		SDL_SetRenderDrawColor(MyRender, 255, 0, 0, 0);
+
+		int Radius = 200;
+		int CenterX = 500;
+		int CenterY = 500;
+		int Size = 15;
+
+		for (int Theta = 0; Theta <= 360; Theta+=Size)
 		{
-			SDL_SetRenderDrawColor(MyRender, DistR(RandomGenerator), DistG(RandomGenerator), DistB(RandomGenerator), DistA(RandomGenerator));
-
-			//사각형 그려
-			SDL_Rect MyRect = { DistX(RandomGenerator), DistY(RandomGenerator), DistX(RandomGenerator), DistY(RandomGenerator) };
-			SDL_RenderFillRect(MyRender, &MyRect);
+		
+			float Radian1 = (float)Theta  * 3.14592f / 180.0f;
+			float Radian2= (float)(Theta+Size) * 3.141592f / 180.0f;
+			int X1 = Radius * SDL_cos(Radian1) + CenterX;
+			int Y1 = Radius * SDL_sin(Radian1) + CenterY;
+			int X2 = Radius * SDL_cos(Radian2) + CenterX;
+			int Y2 = Radius * SDL_sin(Radian2) + CenterY;
+			//SDL_RenderDrawPoint(MyRender, X, Y);
+			SDL_RenderDrawLine(MyRender, X1, Y1, X2, Y2);
 		}
-		//이제 보내기 //그려라 GPU에
-		SDL_RenderPresent(MyRender);
 
+		//
+		//int rad = 50; // 원의 반지름 설정
+		//int x = 200;   // 원의 중심 X 좌표
+		//int y = 300;   // 원의 중심 Y 좌표
+
+		////동그라미 그리기//
+		// 
+		//int rad = 50; // 원의 반지름 설정
+		//int x = 200;   // 원의 중심 X 좌표
+		//int y = 300;   // 원의 중심 Y 좌표
+
+		//for (int i = 0; i < 180; i++)
+		//{
+		//	SDL_SetRenderDrawColor(MyRender, 255, 0, 0, 255);
+
+		//	int x1 = sin(3.14 / 180 * i) * rad;
+		//	int y1 = cos(3.14 / 180 * i) * rad;
+		//	int x2 = sin(3.14 / 180 * (360-i)) * rad;
+		//	int y2 = cos(3.14 / 180 * (360 - i)) * rad;
+
+		//	SDL_RenderDrawLine(MyRender, x1 + x, y1 + y, x2 + x, y2 + y);
+		//}
 
 
 		//----노란색 사각형 띄우기----//
-		//SDL_Rect rect = { rand() % 250, rand() % 150,rand() % 150 , rand() % 150 };
+		//SDL_Rect rect = { 250,  150, 150 , 150 };
 		//
 		//SDL_SetRenderDrawColor(MyRender, 255, 255, 0, 255); //노란색 사각형
 
 		//SDL_RenderFillRect(MyRender, &rect);
 		//----------------------------
 
-	
+		//이제 보내기 //그려라 GPU에
+		SDL_RenderPresent(MyRender);
 	
 	}
 	//랜더 한거 삭제
