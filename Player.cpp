@@ -13,6 +13,8 @@ APlayer::APlayer(int InX, int InY, char InMesh)
 	G = 0;
 	B = 0;
 
+	Load("Data/player.bmp");
+
 }
 
 APlayer::~APlayer()

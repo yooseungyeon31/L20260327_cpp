@@ -41,7 +41,8 @@ protected:
 	char Mesh;
 
 	SDL_Surface* Image;
-	SDL_Texture* Texture;
+	SDL_Texture* Texture; //텍스처로 이미지를 만든다. 
+	//텍스처는 조작이 가능함.
 
 };
 

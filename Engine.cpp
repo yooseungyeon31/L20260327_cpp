@@ -118,7 +118,7 @@ void UEngine::Render(int InX, int InY, SDL_Texture* InTexture)
 }
 
 
-
+//이건 필요없음. 
 void UEngine::Flip()
 {
 	/*SetConsoleActiveScreenBuffer(ScreenBufferHandle[ActiveScreenBufferIndex]);

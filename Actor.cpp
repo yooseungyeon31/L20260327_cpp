@@ -31,11 +31,9 @@ void AActor::Tick()
 //엑터들 그리기 
 void AActor::Render()
 {
-   
-
-
+  
    // GEngine->Render(X, Y, Mesh);
-    GEngine->Render(X, Y, Texture);
+    GEngine->Render(X, Y, Texture); //이제 render로 그리세요
 }
 
 void AActor::SetActorLocation(int NewX, int NewY)
