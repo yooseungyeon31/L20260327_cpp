@@ -23,12 +23,15 @@ UEngine::~UEngine()
 
 void UEngine::Init()
 {
-	SDL_Init(SDL_INIT_EVERYTHING);
+	SDL_Init(SDL_INIT_EVERYTHING); //SDL 시스템 가동
 
 	MyWindow = SDL_CreateWindow("Hello", 100, 100, 1024, 768, SDL_WINDOW_SHOWN);
+
+	//윈도우와 렌더링 생성
 	MyRenderer = SDL_CreateRenderer(MyWindow, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED| SDL_RENDERER_TARGETTEXTURE); //그래픽카드
 	//MyRender = SDL_CreateRenderer(MyWindow, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_SOFTWARE);
 
+	//리소스 매니저 생성
 	ResourceManager = new UResourceManager();
 
 	bIsRunning = true;
