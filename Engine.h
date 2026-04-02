@@ -52,6 +52,7 @@ public:
 	void Clear();
 	void Render(int InX, int InY, char InMesh);
 	void Render(int InX, int InY, int R, int G, int B);
+	void Render(int InX, int InY, SDL_Texture* InTexture);
 	void Flip();
 	void TermBuffer();
 
@@ -67,6 +68,11 @@ public:
 		return DeltaSeconds;
 	}
 
+	inline SDL_Renderer* GetRenderer() 
+	{
+		return MyRenderer;
+	}
+
 protected:
 	void Input();
 	void Tick();
@@ -78,7 +84,7 @@ protected:
 	int bIsRunning : 1;
 
 	SDL_Window* MyWindow;
-	SDL_Renderer* MyRender;
+	SDL_Renderer* MyRenderer;
 	SDL_Event MyEvent;
 	float DeltaSeconds;
 };

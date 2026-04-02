@@ -9,10 +9,14 @@ AActor::AActor(int InX, int InY, char InMesh): X(InX),Y(InY), Mesh(InMesh)
     G = 0;
     B = 0;
 
+
+
 }
 
 AActor::~AActor()
 {
+    SDL_FreeSurface(Image);
+    SDL_DestroyTexture(Texture);
 }
 
 void AActor::BeginPlay()
@@ -27,22 +31,23 @@ void AActor::Tick()
 //엑터들 그리기 
 void AActor::Render()
 {
-    //COORD Coordinate;
-    //Coordinate.X = X;
-    //Coordinate.Y = Y;
-    //SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Coordinate);
    
 
 
-    //std::cout << Mesh;
-
-
-    GEngine->Render(X, Y, Mesh);
-    GEngine->Render(X, Y, R, G, B);
+   // GEngine->Render(X, Y, Mesh);
+    GEngine->Render(X, Y, Texture);
 }
 
 void AActor::SetActorLocation(int NewX, int NewY)
 {
     X = NewX;
     Y = NewY;
+}
+
+//로드 BMP 불러오기 함수
+void AActor::Load(std::string Filename)
+{
+   Image = SDL_LoadBMP(Filename.c_str());
+    //텍스처 가져오기 함수
+   Texture = SDL_CreateTextureFromSurface(GEngine->GetRenderer(), Image);
 }

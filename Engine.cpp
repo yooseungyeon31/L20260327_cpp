@@ -25,7 +25,7 @@ void UEngine::Init()
 	SDL_Init(SDL_INIT_EVERYTHING);
 
 	MyWindow = SDL_CreateWindow("Hello", 100, 100, 1024, 768, SDL_WINDOW_SHOWN);
-	MyRender = SDL_CreateRenderer(MyWindow, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED); //그래픽카드
+	MyRenderer = SDL_CreateRenderer(MyWindow, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED| SDL_RENDERER_TARGETTEXTURE); //그래픽카드
 	//MyRender = SDL_CreateRenderer(MyWindow, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_SOFTWARE);
 
 	bIsRunning = true;
@@ -37,7 +37,7 @@ void UEngine::Init()
 
 void UEngine::Term()
 {
-	SDL_DestroyRenderer(MyRender);
+	SDL_DestroyRenderer(MyRenderer);
 	SDL_DestroyWindow(MyWindow);
 	SDL_Quit();
 
@@ -64,7 +64,7 @@ void UEngine::Run()
 		Render();
 		//초단위로 바꾸려면 ? 
 		DeltaSeconds = (float)(SDL_GetTicks64() - LastTime)/1000.0f; //m/s 
-		SDL_Log("%f s",DeltaSeconds);
+		//SDL_Log("%f s",DeltaSeconds); //알아서 딜레이를 해줌
 	}
 }
 
@@ -93,8 +93,8 @@ void UEngine::Clear()
 	//지우는걸 clear로 옮겨줌
 	//CPU하는건 GPU가 할일을 적는거야. 많이 많이 많이
     //GPU 한테 보낼 명령어 모음
-	SDL_SetRenderDrawColor(MyRender, 255, 255, 255, 255);
-	SDL_RenderClear(MyRender);
+	SDL_SetRenderDrawColor(MyRenderer, 255, 255, 255, 255);
+	SDL_RenderClear(MyRenderer);
 
 	/*DWORD DW;
 	FillConsoleOutputCharacter(ScreenBufferHandle[ActiveScreenBufferIndex], ' ', 80 * 25, COORD{ 0, 0 }, &DW);*/
@@ -109,13 +109,12 @@ void UEngine::Render(int InX, int InY, char InMesh)
 	WriteFile(ScreenBufferHandle[ActiveScreenBufferIndex], MeshString, 1, NULL, NULL);*/
 }
 
-void UEngine::Render(int InX, int InY, int R, int G, int B)
+void UEngine::Render(int InX, int InY, SDL_Texture* InTexture)
 {
 	int TileSize = 30;
-	SDL_SetRenderDrawColor(MyRender, R, G, B, 255);
-	//SDL_RenderDrawPoint(MyRender, InX, InY);
+
 	SDL_Rect MyRect = { InX * TileSize, InY * TileSize, TileSize, TileSize };
-	SDL_RenderFillRect(MyRender, &MyRect);
+	SDL_RenderCopy(MyRenderer, InTexture, nullptr, &MyRect);
 }
 
 
@@ -157,5 +156,5 @@ void UEngine::Render()
 	World->Render();
 
 	//그려CPU -> GPU
-	SDL_RenderPresent(MyRender);
+	SDL_RenderPresent(MyRenderer);
 }
