@@ -10,7 +10,7 @@ AActor::AActor(int InX, int InY, char InMesh): X(InX),Y(InY), Mesh(InMesh)
     B = 0;
 
 
-
+    
 }
 
 AActor::~AActor()
@@ -47,7 +47,7 @@ void AActor::Load(std::string Filename)
 {
    Image = SDL_LoadBMP(Filename.c_str());
 
-   //
+   //흰색 사라지게 하는코드. (몬스터, 도착지점 이미지 흰색 바탕 없애기) 
    SDL_SetColorKey(Image, SDL_TRUE, SDL_MapRGB(Image->format, 255,255,255));
     //텍스처 가져오기 함수
    Texture = SDL_CreateTextureFromSurface(GEngine->GetRenderer(), Image);

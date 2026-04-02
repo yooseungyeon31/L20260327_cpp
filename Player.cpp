@@ -61,7 +61,22 @@ void APlayer::Tick()
 	
 }
 
+void APlayer::Load(std::string Filename)
+{
+	Image = SDL_LoadBMP(Filename.c_str());
+
+	SDL_SetColorKey(Image, SDL_TRUE, SDL_MapRGB(Image->format, 255, 0, 255));
+
+	Texture = SDL_CreateTextureFromSurface(GEngine->GetRenderer(), Image);
+}
+
+
 void APlayer::Render()
 {
-	__super::Render();
+
+	int TileSize = 30;
+	SDL_Rect SourceRect  = { 0,0,Image->w/5, Image->h/5};
+	SDL_Rect DestinationRect = { X * TileSize, Y * TileSize,TileSize,TileSize };
+	SDL_RenderCopy(GEngine->GetRenderer(), Texture, &SourceRect, &DestinationRect);
+	//__super::Render();
 }

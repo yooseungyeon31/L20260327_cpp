@@ -109,6 +109,15 @@ void UEngine::Render(int InX, int InY, char InMesh)
 	WriteFile(ScreenBufferHandle[ActiveScreenBufferIndex], MeshString, 1, NULL, NULL);*/
 }
 
+void UEngine::Render(int InX, int InY, int R, int G, int B)
+{
+	int TileSize = 30;
+	SDL_SetRenderDrawColor(MyRenderer, R, G, B, 255);
+	//SDL_RenderDrawPoint(MyRender, InX, InY);
+	SDL_Rect MyRect = { InX * TileSize, InY * TileSize, TileSize, TileSize };
+	SDL_RenderFillRect(MyRenderer, &MyRect);
+}
+
 void UEngine::Render(int InX, int InY, SDL_Texture* InTexture)
 {
 	int TileSize = 30;
@@ -116,7 +125,6 @@ void UEngine::Render(int InX, int InY, SDL_Texture* InTexture)
 	SDL_Rect MyRect = { InX * TileSize, InY * TileSize, TileSize, TileSize };
 	SDL_RenderCopy(MyRenderer, InTexture, nullptr, &MyRect);
 }
-
 
 //이건 필요없음. 
 void UEngine::Flip()
