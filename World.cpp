@@ -34,6 +34,10 @@ void UWorld::Load(std::string MapName)
 	std::ifstream MapStream(MapName);
 
 	int Y = 0;
+
+	int MaxX = -1;
+	int MaxY = -1;
+
 	while (!MapStream.eof()) //파일 끝에 도달할 때까지 반복
 	{
 		std::string Line;
@@ -65,9 +69,19 @@ void UWorld::Load(std::string MapName)
 				SpawnActor<AGoal>()->SetActorLocation(X, Y);
 				SpawnActor<AFloor>()->SetActorLocation(X, Y);
 			}
+			//화면 크기 맞추는 것
+			if (MaxX < X+1)
+			{
+				MaxX = X+1;
+			}
+
 		}
 		Y++;
 	}
+	
+	MaxY = Y;
+
+	SDL_SetWindowSize (GEngine->GetWindow(), MaxX*30, MaxY*30);
 	//------------------------------------------------------------
 	//Sort();
 	std::sort(Actors.begin(), Actors.end(),
