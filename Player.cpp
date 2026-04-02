@@ -2,7 +2,8 @@
 #include "Engine.h"
 
 #include "GameplayStatics.h"
-#include <iostream>
+#include "ResourceManager.h"
+//#include <iostream>
 
 APlayer::APlayer(int InX, int InY, char InMesh)
 {
@@ -15,7 +16,9 @@ APlayer::APlayer(int InX, int InY, char InMesh)
 	G = 0;
 	B = 0;
 
-	Load("Data/player.bmp");
+	Resource TempResource = GEngine->GetResourceManager()->LoadTexture("Data/player.bmp", true, 255, 0, 255);
+	Image = TempResource.Image;
+	Texture = TempResource.Texture;
 
 }
 
@@ -77,14 +80,6 @@ void APlayer::Tick()
 	}
 }
 
-void APlayer::Load(std::string Filename)
-{
-	Image = SDL_LoadBMP(Filename.c_str());
-
-	SDL_SetColorKey(Image, SDL_TRUE, SDL_MapRGB(Image->format, 255, 0, 255));
-
-	Texture = SDL_CreateTextureFromSurface(GEngine->GetRenderer(), Image);
-}
 
 
 void APlayer::Render()

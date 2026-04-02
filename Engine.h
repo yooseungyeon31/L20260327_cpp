@@ -9,6 +9,7 @@
 
 class AActor;
 class UWorld;
+class UResourceManager;
 
 
 class UEngine
@@ -38,11 +39,11 @@ public:
 
 	void Stop();
 
+
 	inline UWorld* GetWorld()
 	{
 		return World;
 	}
-
 
 	//Renderer
 	HANDLE ScreenBufferHandle[2];
@@ -53,15 +54,14 @@ public:
 	void Render(int InX, int InY, char InMesh);
 	void Render(int InX, int InY, int R, int G, int B);
 	void Render(int InX, int InY, SDL_Texture* InTexture);
+
 	void Flip();
 	void TermBuffer();
-
 
 	inline const SDL_Event& GetEvent()
 	{
 		return MyEvent;
 	}
-	
 
 	inline float GetDeltaSeconds() const
 	{
@@ -78,6 +78,10 @@ public:
 		return MyWindow;
 	}
 
+	inline UResourceManager* GetResourceManager() const
+	{
+		return ResourceManager;
+	}
 
 protected:
 	void Input();
@@ -92,12 +96,11 @@ protected:
 	SDL_Window* MyWindow;
 	SDL_Renderer* MyRenderer;
 	SDL_Event MyEvent;
+
 	float DeltaSeconds;
+
+	UResourceManager* ResourceManager;
 };
 
 
-//GEngine 이라는 별명생성. -> 매크로 같은 존재. 엔진 기능 호출 가능
-#define GEngine UEngine::GetInstance()
-
-//싱글톤 구조
-/* 게임전체에서 엔진 객체는 단 하나만 존재해야한다.*/
+#define GEngine			UEngine::GetInstance()

@@ -3,6 +3,7 @@
 #include "Actor.h"
 #include "World.h"
 #include "SDL.h"
+#include "ResourceManager.h"
 
 UEngine* UEngine::Instance = nullptr;
 
@@ -28,6 +29,8 @@ void UEngine::Init()
 	MyRenderer = SDL_CreateRenderer(MyWindow, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED| SDL_RENDERER_TARGETTEXTURE); //그래픽카드
 	//MyRender = SDL_CreateRenderer(MyWindow, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_SOFTWARE);
 
+	ResourceManager = new UResourceManager();
+
 	bIsRunning = true;
 
 	InitBuffer();
@@ -44,6 +47,8 @@ void UEngine::Term()
 	delete World;
 	TermBuffer();
 	World = nullptr;
+
+	delete ResourceManager;
 }
 
 

@@ -13,7 +13,7 @@ public:
 
 	virtual void Render() override;
 
-	virtual void Load(std::string Filename) override;
+
 
 protected:
 	int SpriteIndexX = 0;
