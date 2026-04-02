@@ -46,6 +46,9 @@ void AActor::SetActorLocation(int NewX, int NewY)
 void AActor::Load(std::string Filename)
 {
    Image = SDL_LoadBMP(Filename.c_str());
+
+   //
+   SDL_SetColorKey(Image, SDL_TRUE, SDL_MapRGB(Image->format, 255,255,255));
     //텍스처 가져오기 함수
    Texture = SDL_CreateTextureFromSurface(GEngine->GetRenderer(), Image);
 }
