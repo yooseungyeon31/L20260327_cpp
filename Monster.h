@@ -16,5 +16,6 @@ protected:
 	float ExecutionTime = 0.1f;
 
 	class USpriteComponent* SpriteComponent;
+	class UCollisionComponent* CollisionComponent;
 };
 

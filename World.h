@@ -4,11 +4,16 @@
 
 class AActor;
 
+class AGameMode;
+
 class UWorld
 {
 public:
 	UWorld();
 	virtual ~UWorld();
+
+	void SetGameMode(AGameMode* NewGameMode);
+
 
 	//월드에서 엑터 스폰
 	template<typename T>
@@ -42,6 +47,8 @@ public:
 	{
 		return Actors;
 	}
+
+	void BeginPlay();
 
 	void Tick();
 

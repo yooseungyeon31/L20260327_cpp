@@ -57,6 +57,7 @@ void UEngine::Term()
 
 void UEngine::Run()
 {
+	World->BeginPlay();
 	
 	Uint64 LastTime;
 	

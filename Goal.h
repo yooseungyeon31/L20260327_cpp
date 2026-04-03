@@ -8,5 +8,7 @@ public:
 	virtual ~AGoal();
 
 	class USpriteComponent* SpriteComponent;
+
+	class UCollisionComponent* CollisionComponent;
 };
 

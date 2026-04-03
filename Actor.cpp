@@ -18,6 +18,11 @@ AActor::~AActor()
 
 void AActor::BeginPlay()
 {
+
+	for (auto Component : Components)
+	{
+		Component->BeginPlay();
+	}
 }
 
 void AActor::Tick()

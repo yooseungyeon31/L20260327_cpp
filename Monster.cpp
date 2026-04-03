@@ -3,6 +3,7 @@
 #include "Engine.h"
 #include "ResourceManager.h"
 #include "SpriteComponent.h"
+#include "CollisionComponent.h"
 
 
 
@@ -19,6 +20,10 @@ AMonster::AMonster(int InX, int InY, char InMesh)
 	SpriteComponent->Texture = TempResource.Texture;
 	SpriteComponent->ZOrder = 30;
 	ExecutionTime = 0.5f;
+
+	CollisionComponent = CreateDefaultSubobject<UCollisionComponent>("Collision");
+	CollisionComponent->bIsGenerateHit = false;
+	CollisionComponent->bIsGenerateOverlap = true;
 }
 
 AMonster::~AMonster()
