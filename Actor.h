@@ -44,6 +44,8 @@ public:
 	//무슨 컴포넌트에 문제가 생기면 여기서 호출
 	FActorBeginOverlapSignature OnActorBeginOverlap;
 
+	virtual void ReceiveHit(class AActor* Other);
+
 
 protected:
 	int X;

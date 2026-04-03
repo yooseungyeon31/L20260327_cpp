@@ -1,6 +1,7 @@
 #pragma once
 #include "Actor.h"
 
+class UCollisionComponent;
 class AWall : public AActor
 {
 public:
@@ -8,5 +9,7 @@ public:
 	virtual ~AWall();
 
 	class USpriteComponent* SpriteComponent;
+
+	UCollisionComponent* CollisionComponent;
 };
 

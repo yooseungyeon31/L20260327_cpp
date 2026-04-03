@@ -1,12 +1,12 @@
 #pragma once 
 //충돌 컴포넌트
 #include "Component.h"
-class UColloisionComponent : public UComponent
+class UCollisionComponent : public UComponent
 {
 public:
 
-	UColloisionComponent();
-	virtual ~UColloisionComponent();
+	UCollisionComponent();
+	virtual ~UCollisionComponent();
 
 	virtual void BeginPlay() override;
 	virtual void Tick() override;
