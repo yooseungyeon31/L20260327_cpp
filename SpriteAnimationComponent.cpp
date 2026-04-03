@@ -33,5 +33,5 @@ void USpriteAnimationComponent::Render()
 		SDL_Rect SourceRect = { SpriteIndexX * SpriteSizeX, SpriteIndexY * SpriteSizeY, SpriteSizeX, SpriteSizeY };
 		SDL_Rect DestinationRect = { Owner->GetX() * TileSize, Owner->GetY() * TileSize, TileSize, TileSize };
 		SDL_RenderCopy(GEngine->GetRenderer(), Texture, &SourceRect, &DestinationRect);
-	//}    
+	
 }

@@ -4,7 +4,6 @@
 #include "ResourceManager.h"
 #include "SpriteAnimationComponent.h"
 
-
 APlayer::APlayer(int InX, int InY, char InMesh)
 {
 	X = InX;
@@ -27,12 +26,21 @@ APlayer::~APlayer()
 {
 }
 
+void APlayer::BeginPlay()
+{
+	__super::BeginPlay();
+
+	OnActorBeginOverlap = [&](AActor* Other) -> void {
+
+		};
+
+}
+
 void APlayer::Tick()
 {
 	__super::Tick();
 
 	SDL_Event Event = GEngine->GetEvent();
-	
 
 	if (Event.type == SDL_KEYDOWN)
 	{
@@ -67,17 +75,9 @@ void APlayer::Tick()
 			GEngine->Stop();
 		}
 	}
-
-	ElapsedTime += UGameplayStatics::GetWorldDeltaSeconds();
-	if (ElapsedTime >= ExecutionTime)
-	{
-		SpriteIndexX++;
-		SpriteIndexX = SpriteIndexX % 5;
-		ElapsedTime = 0;
-	}
-
-
 }
 
-//void APlayer::Render()
-//{
+void APlayer::ProcessBeginOverlap(AActor* OtherActor)
+{
+
+}

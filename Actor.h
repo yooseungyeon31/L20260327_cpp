@@ -1,7 +1,9 @@
 #pragma once
 #include <string>
-#include <vector>	
+#include <vector>
+#include <functional>
 
+using FActorBeginOverlapSignature = std::function<void(class AActor* OtherActor)>;
 
 struct SDL_Surface;
 struct SDL_Texture;
@@ -39,6 +41,9 @@ public:
 	{
 		return Y;
 	}
+	//무슨 컴포넌트에 문제가 생기면 여기서 호출
+	FActorBeginOverlapSignature OnActorBeginOverlap;
+
 
 protected:
 	int X;
