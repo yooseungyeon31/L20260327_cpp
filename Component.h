@@ -9,9 +9,15 @@ public:
 	virtual ~UComponent();
 
 	//순수가상함수
+	//pure virtual function
+	//이클래스는 내가 다른 사람한테 상속으로 하라고 강제할게.
+	//
+
 	virtual void BeginPlay() = 0;
 
 	virtual void Tick()=0;
+
+	class AActor* Owner;
 
 	
 };

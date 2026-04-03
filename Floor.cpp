@@ -1,24 +1,21 @@
 #include "Floor.h"
 #include "Engine.h"
 #include "ResourceManager.h"
+#include "SpriteComponent.h"
+
 
 AFloor::AFloor(int InX, int InY, char InMesh)
 {
 	X = InX;
 	Y = InY;
-	Mesh = InMesh;
-	ZOrder = 0; //바닥이 젤 먼저 깔려야 하니까 0으로 설정
 
-	R = 0;
-	G = 0;
-	B = 0;
+	SpriteComponent = CreateDefaultSubobject<USpriteComponent>("Sprite");
 
 	Resource TempResource = GEngine->GetResourceManager()->LoadTexture("Data/floor.bmp");
-	Image = TempResource.Image;
-	Texture = TempResource.Texture;
+	SpriteComponent->Image = TempResource.Image;
+	SpriteComponent->Texture = TempResource.Texture;
 }
 
 AFloor::~AFloor()
 {
 }
-

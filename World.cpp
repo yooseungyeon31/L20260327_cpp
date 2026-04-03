@@ -1,7 +1,4 @@
 #include "World.h"
-#include "Actor.h"
-#include "Player.h"
-#include "World.h"
 #include "Engine.h"
 
 #include <fstream>
@@ -13,6 +10,8 @@
 #include "Goal.h"
 #include "Wall.h"
 #include "Floor.h"
+#include "RenderableComponent.h"
+#include "SpriteComponent.h"
 
 UWorld::UWorld()
 {
@@ -24,27 +23,23 @@ UWorld::~UWorld()
 	{
 		delete Actor;
 	}
-	Actors.clear();
 
+	Actors.clear();
 }
 
-//로드하기
 void UWorld::Load(std::string MapName)
 {
 	std::ifstream MapStream(MapName);
 
 	int Y = 0;
-
 	int MaxX = -1;
 	int MaxY = -1;
-
-	while (!MapStream.eof()) //파일 끝에 도달할 때까지 반복
+	while (!MapStream.eof())
 	{
 		std::string Line;
 		std::getline(MapStream, Line);
 		for (int X = 0; X < Line.length(); ++X)
 		{
-
 			if (Line[X] == '*')
 			{
 				SpawnActor<AWall>()->SetActorLocation(X, Y);
@@ -69,42 +64,43 @@ void UWorld::Load(std::string MapName)
 				SpawnActor<AGoal>()->SetActorLocation(X, Y);
 				SpawnActor<AFloor>()->SetActorLocation(X, Y);
 			}
-			//화면 크기 맞추는 것
-			if (MaxX < X+1)
+
+			if (MaxX < X + 1)
 			{
-				MaxX = X+1;
+				MaxX = X + 1;
 			}
 
 		}
 		Y++;
 	}
-	
+
 	MaxY = Y;
 
-	SDL_SetWindowSize (GEngine->GetWindow(), MaxX*30, MaxY*30);
-	//------------------------------------------------------------
+	SDL_SetWindowSize(GEngine->GetWindow(), (MaxX) * 30, MaxY * 30);
+
 	//Sort();
-	std::sort(Actors.begin(), Actors.end(),
-		[](AActor* First, AActor* Second) -> int {
-			return (First->GetZOrder() < Second->GetZOrder() ? 1 : 0);
-		}
-	);
+	//std::sort(Actors.begin(), Actors.end(), 
+	//	[](AActor* First, AActor* Second) -> int {
+	//		return 1;
+	//		//return (First->GetZOrder() < Second->GetZOrder() ? 1 : 0);
+	//	}
+	//);
 }
 
 void UWorld::Sort()
 {
-	for (int FirstIndex = 0; FirstIndex < Actors.size(); ++FirstIndex)
-	{
-		for (int SecondIndex = 0; SecondIndex < Actors.size(); ++SecondIndex)
-		{
-			if (Actors[FirstIndex]->GetZOrder() < Actors[SecondIndex]->GetZOrder())
-			{
-				auto Temp = Actors[FirstIndex];
-				Actors[FirstIndex] = Actors[SecondIndex];
-				Actors[SecondIndex] = Temp;
-			}
-		}
-	}
+	//for (int FirstIndex = 0; FirstIndex < Actors.size(); ++FirstIndex)
+	//{
+	//	for (int SecondIndex = 0; SecondIndex < Actors.size(); ++SecondIndex)
+	//	{
+	//		if (Actors[FirstIndex]->GetZOrder() < Actors[SecondIndex]->GetZOrder())
+	//		{
+	//			auto Temp = Actors[FirstIndex];
+	//			Actors[FirstIndex] = Actors[SecondIndex];
+	//			Actors[SecondIndex] = Temp;
+	//		}
+	//	}
+	//}
 }
 
 void UWorld::Tick()
@@ -119,15 +115,18 @@ void UWorld::Render()
 {
 	GEngine->Clear();
 
+	//모든 액터중에서 Render가능한 컴포넌트가 있으면 렌더 하세요.
 	for (auto Actor : Actors)
 	{
-		Actor->Render();
+		for (auto Component : Actor->Components)
+		{
+			USpriteComponent* RenderComponent = dynamic_cast<USpriteComponent*>(Component);
+			if (RenderComponent)
+			{
+				RenderComponent->Render();
+			}
+		}
 	}
 
 	GEngine->Flip();
-
 }
-
-
-
-

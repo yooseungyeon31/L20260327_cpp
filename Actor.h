@@ -1,51 +1,67 @@
 #pragma once
 #include <string>
-//#include "SDL.h"
+#include <vector>	
+#include "Actor.h"
+
 
 struct SDL_Surface;
 struct SDL_Texture;
 
+class UComponent;
+
 class AActor
 {
-
 public:
 	AActor(int InX = 0, int InY = 0, char InMesh = ' ');
 	virtual ~AActor();
 
 	virtual void BeginPlay();
 
-	//오버라이드 재정의
+	//override
 	virtual void Tick();
 
-	virtual void Render();
+	//virtual void Render();
 
 	void SetActorLocation(int NewX, int NewY);
 
+	//inline const int GetZOrder() 
+	//{
+	//	return ZOrder;
+	//}
 
+	std::vector<UComponent*> Components;
 
-
-	inline const int GetZOrder() //순서
+	inline int GetX() const
 	{
-		return ZOrder;
+		return X;
 	}
 
-	bool isCollision;
-	bool isGenrateOverlap;
+	inline int GetY() const
+	{
+		return Y;
+	}
 
 protected:
 	int X;
 	int Y;
 
-	int R;
-	int G;
-	int B;
+	template<typename T>
+	T* CreateDefaultSubobject(std::string ComponentName)
+	{
+		T* Temp = new T;
+		Temp->Owner = this;
+		Components.push_back(Temp);
 
-	int ZOrder=0 ; //먼저 그리는 순서관련 변수
-	char Mesh;
+		return Temp;
+	}
 
-	SDL_Surface* Image;
-	SDL_Texture* Texture; //텍스처로 이미지를 만든다. 
-	//텍스처는 조작이 가능함.
+	//int R;
+	//int G;
+	//int B;
 
+	//int ZOrder = 0;
+	//char Mesh;
+
+	//SDL_Surface* Image;
+	//SDL_Texture* Texture;
 };
-
