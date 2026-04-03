@@ -78,13 +78,43 @@ void UWorld::Load(std::string MapName)
 
 	SDL_SetWindowSize(GEngine->GetWindow(), (MaxX) * 30, MaxY * 30);
 
-	//Sort();
-	//std::sort(Actors.begin(), Actors.end(), 
-	//	[](AActor* First, AActor* Second) -> int {
-	//		return 1;
-	//		//return (First->GetZOrder() < Second->GetZOrder() ? 1 : 0);
-	//	}
-	//);
+	Sort();
+	std::sort(Actors.begin(), Actors.end(),
+		[](AActor* First, AActor* Second) -> int {
+
+			USpriteComponent* FirstRenderComponent = nullptr;
+			for (auto Component : First->Components)
+			{
+				FirstRenderComponent = dynamic_cast<USpriteComponent*>(Component);
+				if (FirstRenderComponent)
+				{
+					break;
+				}
+			}
+
+			if (!FirstRenderComponent)
+			{
+				return 0;
+			}
+
+			USpriteComponent* SecondRenderComponent = nullptr;
+			for (auto Component : Second->Components)
+			{
+				SecondRenderComponent = dynamic_cast<USpriteComponent*>(Component);
+				if (SecondRenderComponent)
+				{
+					break;
+				}
+			}
+
+			if (!SecondRenderComponent)
+			{
+				return 0;
+			}
+
+			return (FirstRenderComponent->ZOrder < SecondRenderComponent->ZOrder ? 1 : 0);
+		}
+	);
 }
 
 void UWorld::Sort()
@@ -118,6 +148,7 @@ void UWorld::Render()
 	//모든 액터중에서 Render가능한 컴포넌트가 있으면 렌더 하세요.
 	for (auto Actor : Actors)
 	{
+		//가진 컴포넌트중에 SpriteRenderComponent가 있냐 물어보는거임?
 		for (auto Component : Actor->Components)
 		{
 			USpriteComponent* RenderComponent = dynamic_cast<USpriteComponent*>(Component);
