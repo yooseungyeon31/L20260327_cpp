@@ -43,3 +43,8 @@ void AActor::ReceiveHit(AActor* Other)
 {
 
 }
+
+UWorld* AActor::GetWorld()
+{
+	return World;
+}

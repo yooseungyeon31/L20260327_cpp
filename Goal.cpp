@@ -20,6 +20,8 @@ AGoal::AGoal(int InX, int InY, char InMesh)
 	CollisionComponent = CreateDefaultSubobject<UCollisionComponent>("Collision");
 	CollisionComponent->bIsGenerateHit = false;
 	CollisionComponent->bIsGenerateOverlap = true;
+
+	Name = "Goal";
 }
 
 AGoal::~AGoal()

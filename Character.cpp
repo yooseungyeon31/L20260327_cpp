@@ -13,7 +13,7 @@ ACharacter::~ACharacter()
 
 bool ACharacter::PredictMove(int InX, int InY)
 {
-	for (auto Other : GEngine->GetWorld()->GetActors())
+	for (auto Other : GetWorld()->GetActors())
 	{
 		if (Other == this)
 		{

@@ -29,7 +29,7 @@ APlayer::APlayer(int InX, int InY, char InMesh)
 	CollisionComponent = CreateDefaultSubobject<UCollisionComponent>("Collision");
 	CollisionComponent->bIsGenerateHit = true;
 	CollisionComponent->bIsGenerateOverlap = true;
-
+	Name = "Player";
 }
 
 APlayer::~APlayer()

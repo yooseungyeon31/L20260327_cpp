@@ -21,14 +21,11 @@ public:
 	//override
 	virtual void Tick();
 
-	//virtual void Render();
+
 
 	void SetActorLocation(int NewX, int NewY);
 
-	//inline const int GetZOrder() 
-	//{
-	//	return ZOrder;
-	//}
+	
 
 	std::vector<UComponent*> Components;
 
@@ -46,6 +43,19 @@ public:
 
 	virtual void ReceiveHit(class AActor* Other);
 
+	class UWorld* GetWorld();
+
+	void SetWorld(class UWorld* InWorld)
+	{
+		World = InWorld;
+	}
+
+	inline const std::string& GetName() const
+	{
+		return Name;
+	}
+
+
 
 protected:
 	int X;
@@ -61,13 +71,8 @@ protected:
 		return Temp;
 	}
 
-	//int R;
-	//int G;
-	//int B;
+	class UWorld* World;
 
-	//int ZOrder = 0;
-	//char Mesh;
+	std::string Name;
 
-	//SDL_Surface* Image;
-	//SDL_Texture* Texture;
 };
