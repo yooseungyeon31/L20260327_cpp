@@ -1,30 +1,60 @@
 #include <iostream>
 #include "Engine.h"
 #include "World.h"
+#include "Component.h"
 #include <map>
 
 
 
 using namespace std;
 
-typedef unsigned char byte;
-using byte = unsigned char;
+class USpriteRenderComponent : UComponent
+{
+public:
+	USpriteRenderComponent()
+	{
+
+	}
+	virtual ~USpriteRenderComponent()
+	{
+
+	}
+
+	virtual void Tick() override
+	{
+
+	}
+	virtual void BeginPlay() override
+	{
+
+	}
+};
+
+class UCollisionComponent : UComponent
+{
+public:
+	UCollisionComponent()
+	{
+
+	}
+	virtual ~UCollisionComponent()
+	{
+
+	}
+
+
+
+};
+
 
 int SDL_main(int argc, char* argv[])
 {
-////비트연산
-////정수 X 01010 이진수
-//	byte Number1 = 0b000000001; //0000 0001
-//	byte Number2 = 0b000000010;
-//	SDL_Log("%d", Number1);
-//
-//	Number1 = Number1 << 1; //shift 연산자 0000 0010
-//	SDL_Log("%d", Number1);
-//
-//	Number1 = Number1 << 1; //shift 연산자 0000 0100
-//	SDL_Log("%d", Number1);
-//
-//	byte Number3 = Number1 | Number2;
+
+	//추상클래스는 바로 생성이 안됨
+	//상속 받아서 구현함
+	//자식에서 이 함수를 무조건 재정의 해야함.
+	USpriteRenderComponent A;
+
 
 	GEngine->GetWorld()->Load("level01.umap");
 
