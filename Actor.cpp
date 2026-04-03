@@ -2,6 +2,7 @@
 #include "Engine.h"
 #include <iostream>
 #include <Windows.h>
+#include "Component.h"
 
 AActor::AActor(int InX, int InY, char InMesh) : X(InX), Y(InY)
 {
@@ -9,6 +10,10 @@ AActor::AActor(int InX, int InY, char InMesh) : X(InX), Y(InY)
 
 AActor::~AActor()
 {
+	for (auto Component : Components)
+	{
+		delete Component;
+	}
 }
 
 void AActor::BeginPlay()
@@ -17,6 +22,10 @@ void AActor::BeginPlay()
 
 void AActor::Tick()
 {
+	for (auto Component : Components)
+	{
+		Component->Tick();
+	}
 }
 
 void AActor::SetActorLocation(int NewX, int NewY)

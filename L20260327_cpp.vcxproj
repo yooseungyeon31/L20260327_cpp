@@ -139,6 +139,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SpriteAnimationComponent.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="RenderableComponent.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="SpriteAnimationComponent.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="World.h" />

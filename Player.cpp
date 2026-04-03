@@ -2,7 +2,8 @@
 #include "Engine.h"
 #include "GameplayStatics.h"
 #include "ResourceManager.h"
-#include "SpriteComponent.h"
+#include "SpriteAnimationComponent.h"
+
 
 APlayer::APlayer(int InX, int InY, char InMesh)
 {
@@ -13,12 +14,13 @@ APlayer::APlayer(int InX, int InY, char InMesh)
 	//Image = TempResource.Image;
 	//Texture = TempResource.Texture;
 
-	SpriteComponent = CreateDefaultSubobject<USpriteComponent>("Sprite");
+	SpriteAnimationComponent = CreateDefaultSubobject<USpriteAnimationComponent>("Sprite");
 
 	Resource TempResource = GEngine->GetResourceManager()->LoadTexture("Data/player.bmp", true, 255, 0, 255);
-	SpriteComponent->Image = TempResource.Image;
-	SpriteComponent->Texture = TempResource.Texture;
-	SpriteComponent->ZOrder = 100;
+	SpriteAnimationComponent->Image = TempResource.Image;
+	SpriteAnimationComponent->Texture = TempResource.Texture;
+	SpriteAnimationComponent->ZOrder = 100;
+	SpriteAnimationComponent->ExecutionTime = 0.15f;
 }
 
 APlayer::~APlayer()
@@ -30,6 +32,7 @@ void APlayer::Tick()
 	__super::Tick();
 
 	SDL_Event Event = GEngine->GetEvent();
+	
 
 	if (Event.type == SDL_KEYDOWN)
 	{
@@ -38,26 +41,26 @@ void APlayer::Tick()
 		if (KeyCode == SDLK_w)
 		{
 			Y--;
-			SpriteIndexY = 2;
-			SpriteIndexX = 0;
+			SpriteAnimationComponent->SpriteIndexY = 2;
+			SpriteAnimationComponent->SpriteIndexX = 0;
 		}
 		if (KeyCode == SDLK_s)
 		{
 			Y++;
-			SpriteIndexY = 3;
-			SpriteIndexX = 0;
+			SpriteAnimationComponent->SpriteIndexY = 3;
+			SpriteAnimationComponent->SpriteIndexX = 0;
 		}
 		if (KeyCode == SDLK_a)
 		{
 			X--;
-			SpriteIndexY = 0;
-			SpriteIndexX = 0;
+			SpriteAnimationComponent->SpriteIndexY = 0;
+			SpriteAnimationComponent->SpriteIndexX = 0;
 		}
 		if (KeyCode == SDLK_d)
 		{
 			X++;
-			SpriteIndexY = 1;
-			SpriteIndexX = 0;
+			SpriteAnimationComponent->SpriteIndexY = 1;
+			SpriteAnimationComponent->SpriteIndexX = 0;
 		}
 		if (KeyCode == SDLK_ESCAPE)
 		{
@@ -72,16 +75,9 @@ void APlayer::Tick()
 		SpriteIndexX = SpriteIndexX % 5;
 		ElapsedTime = 0;
 	}
+
+
 }
 
 //void APlayer::Render()
 //{
-//	int TileSize = 30;
-//	int SpriteSizeX = Image->w / 5;
-//	int SpriteSizeY = Image->h / 5;
-//
-
-//	SDL_Rect SourceRect = { SpriteIndexX * SpriteSizeX, SpriteIndexY * SpriteSizeY, SpriteSizeX, SpriteSizeY };
-//	SDL_Rect DestinationRect = { X * TileSize, Y * TileSize, TileSize, TileSize };
-//	SDL_RenderCopy(GEngine->GetRenderer(), Texture, &SourceRect, &DestinationRect);
-//}
