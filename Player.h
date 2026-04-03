@@ -1,14 +1,13 @@
 #pragma once
-#include "Actor.h"
+#include "Character.h"
 #include <xkeycheck.h>
 
 class USpriteAnimationComponent;
 class UCollisionComponent;
-
 class AActor;
 
 
-class APlayer : public AActor
+class APlayer : public ACharacter
 {
 public:
 	APlayer(int InX = 1, int InY = 1, char InMesh = 'P');
@@ -28,8 +27,7 @@ public:
 	UCollisionComponent* CollisionComponent;
 
 
-protected:
-	//Movement Component로 만들어야함..나중에..
-	bool PredictMove(int InX, int InY);  //미리 가봄 갈 수 있냐 없냐 판단.
+
+
 
 };

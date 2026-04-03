@@ -19,7 +19,21 @@ public:
 
 		return NewActor;
 	}
-
+	//----------------------------------
+	template<typename T>
+	AActor* GetActorOfClass()
+	{
+		for (auto Actor : Actors)
+		{
+			T* Target = dynamic_cast<T*>(Actor);
+			if (Target)
+			{
+				return Target;
+			}
+		}
+		return nullptr;
+	}
+	//----------------------------------
 	//엔진 시작 하자마자 로딩
 	void Load(std::string MapName);
 
