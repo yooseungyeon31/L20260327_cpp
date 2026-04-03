@@ -1,26 +1,29 @@
 #include "Player.h"
 #include "Engine.h"
-
 #include "GameplayStatics.h"
 #include "ResourceManager.h"
-//#include <iostream>
+#include "SpriteComponent.h"
 
 APlayer::APlayer(int InX, int InY, char InMesh)
 {
 	X = InX;
 	Y = InY;
 
-
 	//Resource TempResource = GEngine->GetResourceManager()->LoadTexture("Data/player.bmp", true, 255, 0, 255);
 	//Image = TempResource.Image;
 	//Texture = TempResource.Texture;
 
+	SpriteComponent = CreateDefaultSubobject<USpriteComponent>("Sprite");
+
+	Resource TempResource = GEngine->GetResourceManager()->LoadTexture("Data/player.bmp", true, 255, 0, 255);
+	SpriteComponent->Image = TempResource.Image;
+	SpriteComponent->Texture = TempResource.Texture;
+	SpriteComponent->ZOrder = 100;
 }
 
 APlayer::~APlayer()
 {
 }
-
 
 void APlayer::Tick()
 {
@@ -62,7 +65,6 @@ void APlayer::Tick()
 		}
 	}
 
-
 	ElapsedTime += UGameplayStatics::GetWorldDeltaSeconds();
 	if (ElapsedTime >= ExecutionTime)
 	{
@@ -72,15 +74,13 @@ void APlayer::Tick()
 	}
 }
 
-
-
 //void APlayer::Render()
 //{
 //	int TileSize = 30;
 //	int SpriteSizeX = Image->w / 5;
 //	int SpriteSizeY = Image->h / 5;
 //
-//	
+
 //	SDL_Rect SourceRect = { SpriteIndexX * SpriteSizeX, SpriteIndexY * SpriteSizeY, SpriteSizeX, SpriteSizeY };
 //	SDL_Rect DestinationRect = { X * TileSize, Y * TileSize, TileSize, TileSize };
 //	SDL_RenderCopy(GEngine->GetRenderer(), Texture, &SourceRect, &DestinationRect);

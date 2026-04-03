@@ -1,16 +1,17 @@
 #pragma once
 #include "Actor.h"
+
+class USpriteComponent;
+
 class APlayer : public AActor
 {
 public:
 	APlayer(int InX = 1, int InY = 1, char InMesh = 'P');
 	virtual ~APlayer();
 
-	
-
-	//오버라이드 재정의
 	virtual void Tick() override;
 
+	USpriteComponent* SpriteComponent;
 
 
 protected:
@@ -20,5 +21,5 @@ protected:
 	float ElapsedTime = 0;
 	float ExecutionTime = 0.1f;
 
-};
 
+};
