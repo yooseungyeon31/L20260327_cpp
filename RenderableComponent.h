@@ -7,5 +7,12 @@ class IRenderableComponent
 {
 public:
 	virtual void Render() = 0; //화면에 나오려면 Render만들어!! 
+
+	int ZOrder = 0;
+
+	int bIsVisible : 1;
+
+
+
 };
 

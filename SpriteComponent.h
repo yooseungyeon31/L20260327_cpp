@@ -26,7 +26,7 @@ public:
 //	//c++문법이 없음, 블루프린트 시샵, 자바에만 있음
 	virtual void Render() override;
 
-	int ZOrder = 0;
+	//int ZOrder = 0;
 
 
 	SDL_Surface* Image;

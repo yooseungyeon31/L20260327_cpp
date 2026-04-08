@@ -26,7 +26,7 @@ void AGameMode::Tick()
 		if (Player->GetX() == Goal->GetX() && Player->GetY() == Goal->GetY())
 		{
 			SDL_Log("Complete");
-			GEngine->Stop();
+			//GEngine->Stop();
 		}
 	}
 
@@ -35,7 +35,7 @@ void AGameMode::Tick()
 		if (Player->GetX() == Monster->GetX() && Player->GetY() == Monster->GetY())
 		{
 			SDL_Log("You Die");
-			GEngine->Stop();
+			//GEngine->Stop();
 		}
 	}
 }
